@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KSEB Officer Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/kseb_dashboard.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>KSEB Officer Dashboard</h1>
+        <nav>
+            <a href="{{ url_for('kseb_add_user') }}">Add User</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </nav>
+    </header>
+
+    <div class="container kseb-dashboard">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="flash flash-{{ category }}">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <h2>Welcome, {{ officer.username }}</h2>
+        <p><strong>Total Consumption (All Users):</strong> {{ total }} kWh</p>
+
+        <h2>Add Consumption</h2>
+        <form method="POST" action="{{ url_for('add_consumption') }}">
+            <div class="form-group">
+                <label for="user_id">Select User</label>
+                <select name="user_id" required>
+                    {% for user in users %}
+                    <option value="{{ user.id }}">{{ user.username }} - {{ user.full_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" name="date" required>
+            </div>
+            <div class="form-group">
+                <label for="consumption">Consumption (kWh)</label>
+                <input type="number" name="consumption" step="0.01" required>
+            </div>
+            <button type="submit">Add Entry</button>
+        </form>
+
+
+        <div class="user-section">
+            <h3>Users in Your Region</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Full Name</th>
+                        <th>City</th>
+                        <th>Total Consumption</th>
+                        <th>Total Cost (₹)</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.full_name }}</td>
+                        <td>{{ user.city }}</td>
+                        <td>{{ user_usage[user.username].consumption }}</td>
+                        <td>{{ user_usage[user.username].cost }}</td>
+                        <td>
+                            <form method="POST" action="{{ url_for('delete_user', user_id=user.id) }}"
+                                style="display:inline;">
+                                <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            <details>
+                                <summary>View Energy History</summary>
+                                <table class="inner-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Consumption (kWh)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for record in user_usage[user.username].history %}
+                                        <tr>
+                                            <td>{{ record.date.strftime('%Y-%m-%d') }}</td>
+                                            <td>{{ record.consumption }}</td>
+                                            <td>
+                                                <form method="POST" action="{{ url_for('delete_consumption', entry_id=record.id) }}">
+                                                    <button type="submit" onclick="return confirm('Are you sure you want to delete this entry?')">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </details>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="chart-section">
+            <h3>User Consumption Chart</h3>
+            <div class="chart-container">
+                <canvas id="userConsumptionChart" data-labels="{{ user_labels }}"
+                    data-values="{{ user_consumption_data }}">
+                </canvas>
+            </div>
+
+            <h3>User Cost Chart</h3>
+            <div class="chart-container">
+                <canvas id="userCostChart" data-labels="{{ user_labels }}" data-values="{{ user_cost_data }}">
+                </canvas>
+            </div>
+        </div>
+
+        <div class="anomaly-table">
+            <h3>Detected Anomalies</h3>
+            {% if anomalies %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Date</th>
+                        <th>Consumption</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for anomaly in anomalies %}
+                    <tr>
+                        <td>{{ anomaly.username }}</td>
+                        <td>{{ anomaly.date.strftime('%Y-%m-%d') }}</td>
+                        <td>{{ anomaly.consumption }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>No anomalies found for this period.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/kseb_dashboard.js') }}"></script>
+</body>
+
+</html>

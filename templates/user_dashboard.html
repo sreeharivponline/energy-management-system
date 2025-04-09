@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user_dashboard.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>User Dashboard</h1>
+        <nav>
+            <a href="{{ url_for('logout') }} " class="logout-button">Logout</a>
+        </nav>
+    </header>
+
+    <div class="container dashboard-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="flash flash-{{ category }}">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <!-- User Details Table -->
+        <h2>Welcome, {{ user.full_name }}</h2>
+        <table class="info-table">
+            <tr>
+                <th>Full Name</th>
+                <td>{{ user.full_name }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ user.address }}</td>
+            </tr>
+            <tr>
+                <th>Mobile</th>
+                <td>{{ user.phone_number }}</td>
+            </tr>
+        </table>
+
+        <!-- Latest Usage Table -->
+        {% if data %}
+        {% set latest_entry = data[-1] %}
+        <h3>Latest Usage Details</h3>
+        <table class="info-table">
+            <tr>
+                <th>Date</th>
+                <td>{{ latest_entry.date.strftime('%d-%m-%Y') }}</td>
+            </tr>
+            <tr>
+                <th>Consumption (kWh)</th>
+                <td>{{ latest_consumption }}</td>
+            </tr>
+            <tr>
+                <th>Bill Amount</th>
+                <td>₹{{ bill_dict.total|round(2) }}</td>
+            </tr>
+        </table>
+        {% else %}
+        <p>No energy data available. Please add data below.</p>
+        {% endif %}
+
+        <!-- Actions -->
+        <div class="actions">
+            <a href="{{ url_for('predictions') }}" class="action-button">View Predictions</a>
+            <a href="{{ url_for('generate_report') }}" class="action-button">Generate Report</a>
+        </div>
+
+        <!-- Add New Energy Data Form -->
+        <h3>Add New Energy Data</h3>
+        <form method="POST" action="{{ url_for('user_dashboard') }}">
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+                <label for="consumption">Consumption (kWh)</label>
+                <input type="number" id="consumption" name="consumption" step="0.01" min="0" required>
+            </div>
+            <button type="submit">Add Data</button>
+        </form>
+
+        <!-- All Energy Data Table -->
+        <div class="data-table">
+            <h3>Energy Consumption History</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Consumption (kWh)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in data %}
+                    <tr>
+                        <td>{{ entry.date.strftime('%d-%m-%Y') }}</td>
+                        <td>{{ entry.consumption }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Upload Form -->
+        <form method="POST" action="{{ url_for('upload_data') }}" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Upload CSV</label>
+                <input type="file" id="file" name="file" accept=".csv">
+            </div>
+            <button type="submit">Upload</button>
+        </form>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/user_dashboard.js') }}"></script>
+</body>
+
+</html>

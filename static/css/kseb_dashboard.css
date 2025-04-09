@@ -1,0 +1,212 @@
+/* General Layout */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: #333;
+}
+
+header {
+    background-color: #ffffff;
+    padding: 20px 30px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+header h1 {
+    color: #2a5298;
+    margin-bottom: 5px;
+    font-size: 28px;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+nav a {
+    color: #2a5298;
+    margin: 0 12px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.container.kseb-dashboard {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Section Titles */
+h2, h3 {
+    color: #2a5298;
+    margin-top: 30px;
+}
+
+/* Flash messages */
+.flash {
+    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.flash-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.flash-error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Form styling */
+form {
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #333;
+}
+
+input[type="date"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+input:focus, select:focus {
+    border-color: #2a5298;
+    outline: none;
+}
+
+button {
+    background-color: #2a5298;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #1e3c72;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+thead {
+    background-color: #2a5298;
+    color: white;
+}
+
+.inner-table th,
+.inner-table td {
+    font-size: 14px;
+    padding: 10px;
+}
+
+/* Charts */
+.chart-section {
+    margin-top: 40px;
+}
+
+.chart-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 40px;
+}
+
+/* Details tag */
+details summary {
+    cursor: pointer;
+    font-weight: bold;
+    color: #2a5298;
+    margin-top: 10px;
+}
+
+details[open] summary {
+    margin-bottom: 10px;
+}
+
+/* Anomaly Table */
+.anomaly-table {
+    margin-top: 50px;
+}
+
+.anomaly-table h3 {
+    color: #c0392b;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tr {
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        background-color: #f9f9f9;
+    }
+
+    td {
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+    }
+
+    td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        top: 12px;
+        font-weight: bold;
+        color: #555;
+    }
+
+    button {
+        width: 100%;
+        margin-top: 10px;
+    }
+}

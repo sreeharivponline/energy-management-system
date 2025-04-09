@@ -1,0 +1,191 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: #333;
+}
+
+header {
+    background-color: #ffffff;
+    padding: 1.2rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #2a5298;
+}
+
+header nav a {
+    color: #2a5298;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 1rem;
+}
+
+header nav a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Flash messages */
+.flash {
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+.flash-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.flash-error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.flash-warning {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+/* Headings */
+h2, h3 {
+    color: #2a5298;
+    margin-top: 2rem;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+    background-color: #f9fbfe;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #2a5298;
+    color: white;
+}
+
+tr:hover {
+    background-color: #f1f5fb;
+}
+
+/* Buttons & links */
+button, a.button-link {
+    background-color: #2a5298;
+    border: none;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+    display: inline-block;
+    margin: 0.25rem;
+}
+
+button:hover, a.button-link:hover {
+    background-color: #1e3c72;
+}
+
+/* Sections */
+.officer-section, .user-section {
+    margin-bottom: 2rem;
+}
+
+/* Charts */
+.chart-container {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #eef3fa;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav a {
+        margin: 0.5rem 0;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tr {
+        margin-bottom: 1rem;
+        background: #f8fafd;
+        border-radius: 8px;
+        padding: 0.8rem;
+    }
+
+    td {
+        padding: 0.6rem 0;
+        text-align: right;
+        position: relative;
+    }
+
+    td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 1rem;
+        top: 0.6rem;
+        font-weight: bold;
+        color: #555;
+        text-align: left;
+    }
+
+    button, a.button-link {
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+}

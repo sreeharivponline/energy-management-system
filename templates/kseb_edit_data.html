@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/kseb_dashboard.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Edit Data</h1>
+        <nav>
+            <a href="{{ url_for('kseb_dashboard') }}">Back to Dashboard</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </nav>
+    </header>
+    <div class="container kseb-dashboard">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <h2>Edit Data for {{ user.username }}</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="date">Date (YYYY-MM-DD)</label>
+                <input type="text" id="date" name="date" value="{{ data.date.strftime('%Y-%m-%d') }}" required>
+            </div>
+            <div class="form-group">
+                <label for="consumption">Consumption (kWh)</label>
+                <input type="number" id="consumption" name="consumption" value="{{ data.consumption }}" step="0.01" required>
+            </div>
+            <button type="submit">Update Data</button>
+        </form>
+        <a href="{{ url_for('kseb_dashboard') }}">Back to Dashboard</a>
+    </div>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>

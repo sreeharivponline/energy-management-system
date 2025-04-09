@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/predictions.css') }}">
+</head>
+
+<body>
+    <header>
+        <h1>⚡ Energy Prediction</h1>
+        <a href="{{ url_for('user_dashboard') }}" class="action-button">← Back to Dashboard</a>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="result-box">
+            <h2>📈 Base Prediction</h2>
+            <p><strong>Final Predicted Date:</strong> {{ final_date.strftime('%d-%m-%Y') }}</p>
+            <p><strong>Base Predicted Usage (2 Months):</strong> {{ base_predicted_usage|round(2) }} kWh</p>
+            <p><strong>Base Estimated Bill:</strong> ₹{{ base_estimated_bill|round(2) }}</p>
+        </div>
+    </div>
+    <div class="dashboard-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="flash flash-{{ category }}">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <h3>🧮 Add Appliance</h3>
+        <form method="POST" action="{{ url_for('predictions') }}">
+            <div class="form-group">
+                <label for="appliance_type">Appliance:</label>
+                <select name="appliance_type" id="appliance_type" required>
+                    <option value="fan">Fan (50W)</option>
+                    <option value="bulb">LED Bulb (10W)</option>
+                    <option value="tv">TV (100W)</option>
+                    <option value="fridge">Fridge (150W)</option>
+                    <option value="washing_machine">Washing Machine (200W)</option>
+                    <option value="geyser">Geyser (250W)</option>
+                    <option value="ac">AC (1.5 Ton - 1.5kW)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="hours">Hours per Day:</label>
+                <input type="number" name="hours" id="hours" min="0" max="24" step="0.1" required>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" name="quantity" id="quantity" min="1" value="1" required>
+            </div>
+            <div class="form-group full-width button-row">
+                <button type="submit" name="action" value="add_appliance" class="small-button">➕ Add</button>
+                <button type="submit" name="action" value="reset_appliances" class="reset-button small-button">🔄Reset</button>
+            </div>
+        </form>
+
+        {% if appliance_estimated_bill > 0 %}
+        <p><strong>Total Appliance Usage:</strong> {{ appliance_usage|round(2) }} kWh</p>
+        <p><strong>Estimated Bill:</strong> ₹{{ appliance_estimated_bill|round(2) }}</p>
+        {% else %}
+
+        {% if appliances %}
+        <h3>📋 Selected Appliances</h3>
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>Appliance</th>
+                    <th>Power (kW)</th>
+                    <th>Hours/Day</th>
+                    <th>Quantity</th>
+                    <th>Usage (kWh)</th>
+                    <th>❌</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appliance in appliances %}
+                <tr>
+                    <td>{{ appliance.name }}</td>
+                    <td>{{ appliance.power }}</td>
+                    <td>{{ appliance.hours }}</td>
+                    <td>{{ appliance.quantity }}</td>
+                    <td>{{ (appliance.power * appliance.hours * appliance.quantity * 60) | round(2) }}</td>
+                    <td>
+                        <form method="POST" action="{{ url_for('predictions') }}" style="display:inline;">
+                            <input type="hidden" name="index" value="{{ loop.index0 }}">
+                            <button type="submit" name="action" value="delete_appliance" class="small-delete">❌</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <form method="POST" action="{{ url_for('predictions') }}">
+            <button type="submit" name="action" value="calculate_bill">💡 Calculate Bill</button>
+        </form>
+        {% endif %}
+        {% endif %}
+    </div>
+</body>
+
+</html>
