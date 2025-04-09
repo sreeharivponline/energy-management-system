@@ -1,0 +1,143 @@
+/* index.css */
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #f5f9ff;
+    color: #333;
+}
+
+.main-header {
+    background: linear-gradient(to right, #007BFF, #0056b3);
+    color: white;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+.nav-links a {
+    color: white;
+    margin-left: 1.5rem;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.hero {
+    background: url('../images/energy-bg.jpg') no-repeat center center/cover;
+    text-align: center;
+    padding: 6rem 2rem;
+    color: white;
+}
+
+.hero h2 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.btn-primary {
+    background-color: #007BFF;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #0056b3;
+    color: white;
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    background-color: #004494;
+}
+
+.features {
+    background: rgb(24, 156, 22);
+    padding: 4rem 2rem;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.feature {
+    max-width: 300px;
+    background-color: #f8faff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 2rem;
+}
+
+.feature h3 {
+    color: #007BFF;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.feature p {
+    font-size: 1rem;
+    color: #555;
+}
+
+.footer {
+    background-color: #f1f5fb;
+    padding: 3rem 2rem;
+    color: #333;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.footer div {
+    flex: 1 1 200px;
+}
+
+.footer h4 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #007BFF;
+}
+
+.footer a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+}
+
+.footer a:hover {
+    color: #007BFF;
+}
+
+.copyright {
+    background-color: #003b71;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+

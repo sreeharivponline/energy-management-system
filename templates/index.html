@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Watt Predict</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="main-header">
+    <div class="logo">Watt Predict</div>
+    <nav class="nav-links">
+      <a href="{{ url_for('login', role='user') }}">User Login</a>
+      <a href="{{ url_for('login', role='admin') }}">Admin Login</a>
+      <a href="{{ url_for('login', role='officer') }}">KSEB Officer Login</a>
+      <a href="{{ url_for('register') }}">Sign Up</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Smart Energy Management for a Sustainable Future</h2>
+    <p>Track. Predict. Save. Empowering users with intelligent insights to monitor and reduce energy consumption.</p>
+    <div class="btn-group">
+      <a href="{{ url_for('login', role='user') }}" class="btn-primary">User Login</a>
+      <a href="{{ url_for('login', role='admin') }}" class="btn-secondary">Admin Login</a>
+      <a href="{{ url_for('login', role='officer') }}" class="btn-secondary">KSEB Officer Login</a>
+      <a href="{{ url_for('register') }}" class="btn-primary">Sign Up</a>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="feature">
+      <h3>Real-time Tracking</h3>
+      <p>Monitor electricity usage and costs in real time using our intuitive dashboards.</p>
+    </div>
+    <div class="feature">
+      <h3>AI-Powered Predictions</h3>
+      <p>Leverage AI to get accurate forecasts of your upcoming electricity consumption and bills.</p>
+    </div>
+    <div class="feature">
+      <h3>Consumption Alerts</h3>
+      <p>Get notified when your energy usage spikes. Stay informed and save more.</p>
+    </div>
+    <div class="feature">
+      <h3>Role-Based Access</h3>
+      <p>Custom dashboards for users, admins, and KSEB officers for smooth operations.</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div>
+      <h4>About Watt Predict</h4>
+      <p>Watt Predict is your smart companion for energy management, providing AI-driven insights and proactive alerts for efficient electricity usage.</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <a href="{{ url_for('login', role='user') }}">User Login</a>
+      <a href="{{ url_for('login', role='admin') }}">Admin Login</a>
+      <a href="{{ url_for('login', role='officer') }}">KSEB Officer Login</a>
+      <a href="{{ url_for('register') }}">Sign Up</a>
+    </div>
+    <div>
+      <h4>Contact Us</h4>
+      <a href="mailto:support@wattpredict.com">support@wattpredict.com</a>
+      <a href="#">+91 98765 43210</a>
+    </div>
+    <div>
+      <h4>Follow Us</h4>
+      <a href="#">Instagram</a>
+      <a href="#">Twitter</a>
+      <a href="#">LinkedIn</a>
+    </div>
+  </footer>
+  <p class="copyright">&copy; 2025 Watt Predict. All rights reserved.</p>
+</body>
+</html>
