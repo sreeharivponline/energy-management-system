@@ -1,3 +1,4 @@
+[![Watch Demo](watt-predict.mp4)
 # ⚡ Energy Management System
 
 A full-stack web application for monitoring, predicting, and managing electricity consumption. It features dashboards for Users, Admins, and KSEB Officers with intelligent features like anomaly detection, billing, and energy usage prediction using LSTM and Prophet.
