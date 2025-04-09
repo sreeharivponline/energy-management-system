@@ -37,7 +37,8 @@ A full-stack web application for monitoring, predicting, and managing electricit
 ```bash
 # Clone the repository
 git clone https://github.com/sreeharivponline/energy-management-system.git
-cd energy-management-system
+cd energy-management-system 
+
 
 # Set up virtual environment
 python -m venv venv
