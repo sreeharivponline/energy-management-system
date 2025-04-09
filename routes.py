@@ -16,7 +16,7 @@ def init_routes(app):
     @app.route('/')
     def home():
         """Redirect to the login page."""
-        return redirect(url_for('login'))
+        return render_template('index.html')
 
     @app.route('/register', methods=['GET', 'POST'])
     def register():
