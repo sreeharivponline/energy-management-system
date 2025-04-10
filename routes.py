@@ -96,7 +96,7 @@ def init_routes(app):
     def logout():
         """Handle logout for all users."""
         logout_user()
-        return redirect(url_for('login'))
+        return redirect(url_for('home'))
 
     @app.route('/user/dashboard', methods=['GET', 'POST'])
     @login_required
